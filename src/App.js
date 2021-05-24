@@ -1,17 +1,22 @@
+
+import React, { useState } from "react";
+import { Container, Row } from 'react-bootstrap';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ProjectTable from './components/ProjectTable';
-import AddProject from './components/AddProject';
+import AddAndEditProject from './components/AddAndEditProject';
 import SearchProject from './components/SearchProject';
 import useLocalStorage from './hooks/useLocalStorage';
-import React, { useState } from "react";
-import { Container, Row } from 'react-bootstrap';
+import useModal from './hooks/useModal';
+
 
 function App() {
 
   const [searchText, setSearchText] = useState("")
   const [projects, setProjects] = useLocalStorage('projects', []);
+  const {toggle, visible} = useModal(); 
+  const [editProject, setEditProject] = useState(null); 
 
 
   return (
@@ -22,9 +27,9 @@ function App() {
         </Row>
         <Row className="mb-3">
           <SearchProject onChange={ (value) => setSearchText(value) } />
-          <AddProject  projects={projects} setProjects={setProjects} />
+          <AddAndEditProject  projects={projects} setProjects={setProjects} toggle={toggle} visible={visible} editProject={editProject} setEditProject={setEditProject}/>
         </Row>
-          <ProjectTable projects={projects} setProjects={setProjects} searchText={searchText}/>
+        <ProjectTable projects={projects} setProjects={setProjects} searchText={searchText} onEdit={ (project) => { toggle(); setEditProject(project) }}/>
       </Container>
     </div>
   );

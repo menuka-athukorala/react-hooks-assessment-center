@@ -2,15 +2,10 @@ import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { Table, Button } from "react-bootstrap";
 import Project from "./Project";
-import EditProject from "./EditProject";
 
-const ProjectTable = ({ projects, setProjects, searchText }) => {
-  console.log(projects.address);
+const ProjectTable = ({ projects, setProjects, searchText, onEdit }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [newArray, setNewArray] = useState([]);
-  const [updateInfo, setUpdateInfo] = useState("");
-
-
 
   //SEARCH FROM NAME, ADDRESS, TYPE AND CUSTOMER NAME
   useEffect(() => {
@@ -50,25 +45,18 @@ const ProjectTable = ({ projects, setProjects, searchText }) => {
     setNewArray([]);
   };
 
-
   //UPDATE PROJECT
   const updateProject = (id) => {
-    console.log("id: ", id);
-    setUpdateInfo(projects.find((project) => project.id === id));
-    return(
-      <EditProject projects={projects} setProjects={setProjects} updateInfo={id} />
-    )
-
+    const projectToEdit = projects.find((project) => project.id === id);
+    onEdit(projectToEdit);
   };
-
 
   return (
     <React.Fragment>
       <Table responsive>
         <thead>
           <tr>
-            <th>
-            </th>
+            <th></th>
             <th scope="col">Name</th>
             <th scope="col">Runtime</th>
             <th scope="col">Address</th>

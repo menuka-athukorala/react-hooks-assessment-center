@@ -10,12 +10,12 @@ const SearchProject = (props) => {
   return (
     <React.Fragment>
       <Form inline>
-          <Form.Control
-            type="text"
-            onChange={onChangeValue}
-            placeholder="Search"
-            className="mr-sm-2"
-          />
+        <Form.Control
+          type="text"
+          onChange={onChangeValue}
+          placeholder="Search"
+          className="mr-sm-2"
+        />
       </Form>
     </React.Fragment>
   );
