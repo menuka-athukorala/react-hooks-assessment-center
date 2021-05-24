@@ -22,7 +22,7 @@ const DataModal = (props) => {
       city: props.editProject ? props.editProject.city : "",
       postalCode: props.editProject ? props.editProject.postalCode : "",
       country: props.editProject ? props.editProject.country : "",
-      type: props.editProject ? props.editProject.type : "",
+      type: props.editProject ? props.editProject.type : "Select Type",
       customerName: props.editProject ? props.editProject.customerName : "",
     };
   });
