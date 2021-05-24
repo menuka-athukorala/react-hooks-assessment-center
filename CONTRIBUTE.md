@@ -6,7 +6,7 @@ react-hook-assessment-center, DocuTool
 
 ### How to setup
 - Prerequisites
-  npm installed 
+   - npm installed 
  
 - setup
    - clone the git repo
