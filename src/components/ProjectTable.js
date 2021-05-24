@@ -65,8 +65,8 @@ const ProjectTable = ({ projects, setProjects, searchText, onEdit }) => {
             <th scope="col">
               {!_.isEmpty(newArray) ? (
                 <Button
-                  variant="outline-danger"
-                  className="btn-custom"
+                  variant="outline-light"
+                  className="btn-custom btn-light"
                   onClick={deleteSelectedProject}
                 >
                   {" "}

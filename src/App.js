@@ -22,12 +22,15 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Row className="mt-5">
-        <h2 className="py-5">Project Details</h2>
+        <Row className="mt-4">
+        <h2 className="p-4">Project Details</h2>
         </Row>
         <Row className="mb-3">
+          <div className="col-12 d-inline-flex">
           <SearchProject onChange={ (value) => setSearchText(value) } />
           <AddAndEditProject  projects={projects} setProjects={setProjects} toggle={toggle} visible={visible} editProject={editProject} setEditProject={setEditProject}/>
+          </div>
+
         </Row>
         <ProjectTable projects={projects} setProjects={setProjects} searchText={searchText} onEdit={ (project) => { toggle(); setEditProject(project) }}/>
       </Container>

@@ -28,6 +28,9 @@ code {
   color: #ffffff !important;
   background-color: #ff6632 !important;
 }
+.btn-light{
+  padding: .2rem .42rem !important;
+}
 
 .round-border {
   border-radius: 20px !important;

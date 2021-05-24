@@ -4,7 +4,8 @@ import { Button } from "react-bootstrap";
 const Project = ({
   id,
   name,
-  runTime,
+  startDate,
+  endDate,
   street,
   city,
   postalCode,
@@ -22,7 +23,9 @@ const Project = ({
         <input type="checkbox" onChange={(e) => handlecheckBox(e, id)} />
       </td>
       <td>{name}</td>
-      <td>{runTime}</td>
+      <td>
+        {startDate} - {endDate}
+      </td>
       <td>
         {street}, {city}, {postalCode}, {country}
       </td>

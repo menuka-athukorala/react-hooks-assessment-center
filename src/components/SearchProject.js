@@ -14,7 +14,7 @@ const SearchProject = (props) => {
           type="text"
           onChange={onChangeValue}
           placeholder="Search"
-          className="mr-sm-2"
+          className="mr-sm-2 round-border"
         />
       </Form>
     </React.Fragment>

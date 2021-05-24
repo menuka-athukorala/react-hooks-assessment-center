@@ -18,7 +18,7 @@ const AddAndEditProject = ({
   //HANDLE PROJECT UPDATE
   const handleUpdate = (project) => {
     const updatedProjects = projects.map((p) =>
-      p.id == project.id ? project : p
+      p.id === project.id ? project : p
     );
     setProjects(updatedProjects);
   };
@@ -27,7 +27,7 @@ const AddAndEditProject = ({
     <React.Fragment>
       <Button
         variant="outline-success"
-        className=""
+        className="round-border"
         type="button"
         onClick={toggle}
       >

@@ -1,49 +1,37 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Col } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 
 const DataModal = (props) => {
   const [buttonTitle, setButtonTitle] = useState("Submit");
   const [isEditing, setIsEditing] = useState(false);
 
-  const [startDate, setStartDate] = useState(new Date());
-
   const [project, setProject] = useState(() => {
     if (props.editProject) {
-      setButtonTitle("Update"); // set Button title
-      setIsEditing(true); // set isEditing
-      return {
-        name: props.editProject ? props.editProject.name : "",
-        runTime: props.editProject ? props.editProject.runTime : "",
-        street: props.editProject ? props.editProject.street : "",
-        city: props.editProject ? props.editProject.city : "",
-        postalCode: props.editProject ? props.editProject.postalCode : "",
-        country: props.editProject ? props.editProject.country : "",
-        type: props.editProject ? props.editProject.type : "",
-        customerName: props.editProject ? props.editProject.customerName : "",
-      };
+      setButtonTitle("Update");
+      setIsEditing(true); 
     } else {
       setButtonTitle("Submit");
       setIsEditing(false);
-      return {
-        name: props.project ? props.project.name : "",
-        runTime: props.project ? props.project.runTime : "",
-        street: props.project ? props.project.street : "",
-        city: props.project ? props.project.city : "",
-        postalCode: props.project ? props.project.postalCode : "",
-        country: props.project ? props.project.country : "",
-        type: props.project ? props.project.type : "Select Type",
-        customerName: props.project ? props.project.customerName : "",
-      };
     }
+    return {
+      name: props.editProject ? props.editProject.name : "",
+      startDate: props.editProject ? props.editProject.startDate : "",
+      endDate: props.editProject ? props.editProject.endDate : "",
+      street: props.editProject ? props.editProject.street : "",
+      city: props.editProject ? props.editProject.city : "",
+      postalCode: props.editProject ? props.editProject.postalCode : "",
+      country: props.editProject ? props.editProject.country : "",
+      type: props.editProject ? props.editProject.type : "",
+      customerName: props.editProject ? props.editProject.customerName : "",
+    };
   });
 
   const [errorMsg, setErrorMsg] = useState("");
   const {
     name,
-    runTime,
+    startDate,
+    endDate,
     street,
     city,
     postalCode,
@@ -63,7 +51,8 @@ const DataModal = (props) => {
     event.preventDefault();
     const values = [
       name,
-      runTime,
+      startDate,
+      endDate,
       street,
       city,
       postalCode,
@@ -72,7 +61,6 @@ const DataModal = (props) => {
       customerName,
     ];
     let errorMsg = "";
-
 
     // CHECK ALL FIELDS ARE FILLED
     const allFieldsFilled = values.every((field) => {
@@ -84,7 +72,8 @@ const DataModal = (props) => {
       const project = {
         id: isEditing ? props.editProject.id : uuidv4(),
         name,
-        runTime,
+        startDate,
+        endDate,
         street,
         city,
         postalCode,
@@ -93,7 +82,6 @@ const DataModal = (props) => {
         customerName,
       };
 
-      // if it is an edit then update else add as a new project
       if (isEditing) {
         props.handleUpdate(project);
       } else {
@@ -107,7 +95,8 @@ const DataModal = (props) => {
     setErrorMsg(errorMsg);
     setProject({
       name: "",
-      runTime: "",
+      startDate: "",
+      endDate: "",
       street: "",
       city: "",
       postalCode: "",
@@ -116,7 +105,6 @@ const DataModal = (props) => {
       customerName: "",
     });
   };
-
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -155,24 +143,30 @@ const DataModal = (props) => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
-            <Form.Group controlId="runTime">
-              <Form.Label>Runtime:</Form.Label>
-              {/* <DatePicker
-                name="runTime"
-                value={runTime}
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-              /> */}
-              <Form.Control
-                className="input-control"
-                type="text"
-                name="runTime"
-                value={runTime}
-                placeholder="Enter runtime"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col} controlId="startDate">
+                <Form.Label>Project Run Time: </Form.Label>
+                <Form.Control
+                  className="input-control"
+                  type="text"
+                  name="startDate"
+                  value={startDate}
+                  placeholder=" Start Date (DD/MM/YY)"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="endDate">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  className="input-control mt-2"
+                  type="text"
+                  name="endDate"
+                  value={endDate}
+                  placeholder="End Date (DD/MM/YY)"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+            </Form.Row>
             <Form.Row>
               <Form.Group as={Col} controlId="street">
                 <Form.Label>Street Address:</Form.Label>
