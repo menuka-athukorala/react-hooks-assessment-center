@@ -31,13 +31,13 @@ react-hook-assessment-center, DocuTool
 - Add Project
 ![Demo one](https://github.com/menuka-athukorala/react-hooks-assessment-center/blob/trunk-menuka/resources/Demo/Add%20Project.gif)
 
--Delet Project
+- Delete Project
 ![Demo two](https://github.com/menuka-athukorala/react-hooks-assessment-center/blob/trunk-menuka/resources/Demo/Delete%20Project.gif)
 
--Update Project
+- Update Project
 ![Demo three](https://github.com/menuka-athukorala/react-hooks-assessment-center/blob/trunk-menuka/resources/Demo/Edit%20Project.gif)
 
--Search Project
+- Search Project
 ![Demo four](https://github.com/menuka-athukorala/react-hooks-assessment-center/blob/trunk-menuka/resources/Demo/Search%20Project.gif)
 
 
