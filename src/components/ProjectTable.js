@@ -12,10 +12,10 @@ const ProjectTable = ({ projects, setProjects, searchText, onEdit }) => {
     const results = projects.filter(
       (project) =>
         project.name.toLowerCase().includes(searchText) ||
-        project.street.toLowerCase().includes(searchText) ||
-        project.city.toLowerCase().includes(searchText) ||
-        project.postalCode.toLowerCase().includes(searchText) ||
-        project.country.toLowerCase().includes(searchText) ||
+        project.address.streetAddress.toLowerCase().includes(searchText) ||
+        project.address.city.toLowerCase().includes(searchText) ||
+        project.address.postalCode.toLowerCase().includes(searchText) ||
+        project.address.country.toLowerCase().includes(searchText) ||
         project.type.toLowerCase().includes(searchText) ||
         project.customerName.toLowerCase().includes(searchText)
     );

@@ -4,12 +4,8 @@ import { Button } from "react-bootstrap";
 const Project = ({
   id,
   name,
-  startDate,
-  endDate,
-  street,
-  city,
-  postalCode,
-  country,
+  runtime,
+  address,
   type,
   customerName,
   handlecheckBox,
@@ -24,10 +20,11 @@ const Project = ({
       </td>
       <td>{name}</td>
       <td>
-        {startDate} - {endDate}
+        {runtime.startDate} - {runtime.endDate}
       </td>
       <td>
-        {street}, {city}, {postalCode}, {country}
+        {address.streetAddress}, {address.city}, {address.postalCode},{" "}
+        {address.country}
       </td>
       <td>{type}</td>
       <td>{customerName}</td>

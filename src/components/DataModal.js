@@ -9,36 +9,34 @@ const DataModal = (props) => {
   const [project, setProject] = useState(() => {
     if (props.editProject) {
       setButtonTitle("Update");
-      setIsEditing(true); 
+      setIsEditing(true);
     } else {
       setButtonTitle("Submit");
       setIsEditing(false);
     }
     return {
       name: props.editProject ? props.editProject.name : "",
-      startDate: props.editProject ? props.editProject.startDate : "",
-      endDate: props.editProject ? props.editProject.endDate : "",
-      street: props.editProject ? props.editProject.street : "",
-      city: props.editProject ? props.editProject.city : "",
-      postalCode: props.editProject ? props.editProject.postalCode : "",
-      country: props.editProject ? props.editProject.country : "",
+      runtime: {
+        startDate: props.editProject ? props.editProject.runtime.startDate : "",
+        endDate: props.editProject ? props.editProject.runtime.endDate : "",
+      },
+      address: {
+        streetAddress: props.editProject
+          ? props.editProject.address.streetAddress
+          : "",
+        city: props.editProject ? props.editProject.address.city : "",
+        postalCode: props.editProject
+          ? props.editProject.address.postalCode
+          : "",
+        country: props.editProject ? props.editProject.address.country : "",
+      },
       type: props.editProject ? props.editProject.type : "Select Type",
       customerName: props.editProject ? props.editProject.customerName : "",
     };
   });
 
   const [errorMsg, setErrorMsg] = useState("");
-  const {
-    name,
-    startDate,
-    endDate,
-    street,
-    city,
-    postalCode,
-    country,
-    type,
-    customerName,
-  } = project;
+  const { name, runtime, address, type, customerName } = project;
 
   // HANDLE CLOSE BUTTON AND HEADER CLOSE BUTTON
   const onClose = () => {
@@ -49,22 +47,24 @@ const DataModal = (props) => {
   // HANDLE BOTH ADD AND UPDATE
   const handleSubmitAndUpdate = (event) => {
     event.preventDefault();
+    const data = new FormData(event.target);
+
     const values = [
-      name,
-      startDate,
-      endDate,
-      street,
-      city,
-      postalCode,
-      country,
-      type,
-      customerName,
+      data.get("name"),
+      data.get("runtime.startDate"),
+      data.get("runtime.endDate"),
+      data.get("address.streetAddres"),
+      data.get("address.city"),
+      data.get("address.postalCode"),
+      data.get("address.country"),
+      data.get("type"),
+      data.get("customerName"),
     ];
     let errorMsg = "";
 
     // CHECK ALL FIELDS ARE FILLED
-    const allFieldsFilled = values.every((field) => {
-      const value = `${field}`.trim();
+    const allFieldsFilled = values.every((field, index) => {
+      let value = `${field}`.trim();
       return value !== "" && value !== "0";
     });
 
@@ -72,12 +72,16 @@ const DataModal = (props) => {
       const project = {
         id: isEditing ? props.editProject.id : uuidv4(),
         name,
-        startDate,
-        endDate,
-        street,
-        city,
-        postalCode,
-        country,
+        runtime: {
+          startDate: values[1],
+          endDate: values[2],
+        },
+        address: {
+          streetAddress: values[3],
+          city: values[4],
+          postalCode: values[5],
+          country: values[6],
+        },
         type,
         customerName,
       };
@@ -95,13 +99,17 @@ const DataModal = (props) => {
     setErrorMsg(errorMsg);
     setProject({
       name: "",
-      startDate: "",
-      endDate: "",
-      street: "",
-      city: "",
-      postalCode: "",
-      country: "",
-      type: "",
+      runtime: {
+        startDate: "",
+        endDate: "",
+      },
+      address: {
+        streetAddress: "",
+        city: "",
+        postalCode: "",
+        country: "",
+      },
+      type: "Select Type",
       customerName: "",
     });
   };
@@ -117,11 +125,11 @@ const DataModal = (props) => {
 
   return (
     <Modal
+      animation={false}
       show={props.visible}
       onHide={props.toggle}
       backdrop="static"
       keyboard={false}
-      animation={true}
       dialogClassName="text"
     >
       <Modal.Header closeButton onClick={onClose}>
@@ -144,72 +152,72 @@ const DataModal = (props) => {
               />
             </Form.Group>
             <Form.Row>
-              <Form.Group as={Col} controlId="startDate">
+              <Form.Group as={Col} controlId="runtime.startDate">
                 <Form.Label>Project Run Time: </Form.Label>
                 <Form.Control
                   className="input-control"
                   type="text"
-                  name="startDate"
-                  value={startDate}
+                  name="runtime.startDate"
+                  defaultValue={runtime.startDate}
                   placeholder=" Start Date (DD/MM/YY)"
                   onChange={handleInputChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="endDate">
+              <Form.Group as={Col} controlId="runtime.endDate">
                 <Form.Label></Form.Label>
                 <Form.Control
                   className="input-control mt-2"
                   type="text"
-                  name="endDate"
-                  value={endDate}
+                  name="runtime.endDate"
+                  defaultValue={runtime.endDate}
                   placeholder="End Date (DD/MM/YY)"
                   onChange={handleInputChange}
                 />
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Form.Group as={Col} controlId="street">
+              <Form.Group as={Col} controlId="address.streetAddres">
                 <Form.Label>Street Address:</Form.Label>
                 <Form.Control
                   className="input-control"
                   type="text"
-                  name="street"
-                  value={street}
+                  name="address.streetAddres"
+                  defaultValue={address.streetAddress}
                   placeholder="Enter the street"
                   onChange={handleInputChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="city">
+              <Form.Group as={Col} controlId="address.city">
                 <Form.Label>City:</Form.Label>
                 <Form.Control
                   className="input-control"
                   type="text"
-                  name="city"
-                  value={city}
+                  name="address.city"
+                  defaultValue={address.city}
                   placeholder="Enter the city"
                   onChange={handleInputChange}
                 />
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Form.Group as={Col} controlId="postalCode">
+              <Form.Group as={Col} controlId="address.postalCode">
                 <Form.Label>Postal Code:</Form.Label>
                 <Form.Control
                   className="input-control"
                   type="text"
-                  name="postalCode"
-                  value={postalCode}
+                  name="address.postalCode"
+                  defaultValue={address.postalCode}
                   placeholder="Enter the Postal Code"
                   onChange={handleInputChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="country">
+              <Form.Group as={Col} controlId="address.country">
                 <Form.Label>Country:</Form.Label>
                 <Form.Control
                   className="input-control"
                   type="text"
-                  name="country"
-                  value={country}
+                  name="address.country"
+                  defaultValue={address.country}
                   placeholder="Enter the Country"
                   onChange={handleInputChange}
                 />
